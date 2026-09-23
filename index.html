@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linha do Tempo - Sabrina Andrade</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .slide-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            max-width: 1100px;
+            background: #141416;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #28282e;
+        }
+
+        /* Coluna da Esquerda */
+        .left-column {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1e;
+            border-right: 1px solid #28282e;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #2563eb;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+            margin-bottom: 25px;
+        }
+
+        .profile-info h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .profile-info p {
+            font-size: 1.1rem;
+            color: #9ca3af;
+        }
+
+        /* Coluna da Direita */
+        .right-column {
+            flex: 1.5;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        /* Item da Linha do Tempo */
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            cursor: pointer;
+            padding: 12px 15px;
+            border-radius: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            background: #1e1e24;
+        }
+
+        /* Visual da Linha / Nós */
+        .timeline-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30px;
+        }
+
+        .node {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #6b7280;
+            background-color: #141416;
+            transition: all 0.3s ease;
+        }
+
+        .arrow-down {
+            width: 2px;
+            height: 100%;
+            min-height: 25px;
+            background-color: #374151;
+            margin-top: 4px;
+        }
+
+        /* Conteúdo do Item */
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h2 {
+            font-size: 1.15rem;
+            color: #e5e7eb;
+            margin-bottom: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: #9ca3af;
+        }
+
+        /* Detalhes Expansíveis */
+        .details {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+            margin-top: 0;
+        }
+
+        .details p {
+            font-size: 0.85rem;
+            color: #d1d5db;
+            line-height: 1.4;
+            padding-top: 8px;
+        }
+
+        /* Estado Ativo / Expandido */
+        .timeline-item.expanded .node {
+            border-color: #2563eb;
+            background-color: #2563eb;
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.6);
+        }
+
+        .timeline-item.expanded .timeline-content h2 {
+            color: #3b82f6;
+        }
+
+        .timeline-item.expanded .details {
+            max-height: 150px;
+            opacity: 1;
+            margin-top: 6px;
+        }
+
+        /* Responsividade para telemóveis e ecrãs pequenos */
+        @media (max-width: 768px) {
+            .slide-container {
+                flex-direction: column;
+            }
+            .left-column {
+                border-right: none;
+                border-bottom: 1px solid #28282e;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        
+        <!-- Lado Esquerdo: Perfil Profissional -->
+        <div class="left-column">
+            <!-- Substitua 'sua-foto.jpg' pelo ficheiro da sua imagem -->
+            <img src="sua-foto.jpg" alt="Sabrina Andrade" class="profile-img">
+            <div class="profile-info">
+                <h1>Sabrina Andrade</h1>
+                <p>Gestora de RH & Assistente Administrativa</p>
+            </div>
+        </div>
+
+        <!-- Lado Direito: Linha do Tempo Profissional e Académica -->
+        <div class="right-column">
+            
+            <!-- Etapa 1: Vendas -->
+            <div class="timeline-item" onclick="toggleDetails(this)">
+                <div class="timeline-visual">
+                    <div class="node"></div>
+                    <div class="arrow-down"></div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Vendedora Autónoma</h2>
+                    <p>Até ao ano de 2024</p>
+                    <div class="details">
+                        <p>Atendimento direto ao cliente, prospecção, negociação e gestão autónoma de vendas e stock.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 2: CallCenter -->
+            <div class="timeline-item" onclick="toggleDetails(this)">
+                <div class="timeline-visual">
+                    <div class="node"></div>
+                    <div class="arrow-down"></div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Atendimento CallCenter</h2>
+                    <p>Hapvida | Jan/2024 – Set/2025</p>
+                    <div class="details">
+                        <p>Atendimento ao cliente, resolução de conflitos, escuta ativa e comunicação clara em ambiente de alto volume.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 3: Curso Técnico -->
+            <div class="timeline-item" onclick="toggleDetails(this)">
+                <div class="timeline-visual">
+                    <div class="node"></div>
+                    <div class="arrow-down"></div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Técnica em Administração</h2>
+                    <p>Formação em Setembro/2025</p>
+                    <div class="details">
+                        <p>Desenvolvimento de competências em processos organizacionais, rotinas administrativas e gestão financeira básica.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 4: Estágio AGEFIS -->
+            <div class="timeline-item" onclick="toggleDetails(this)">
+                <div class="timeline-visual">
+                    <div class="node"></div>
+                    <div class="arrow-down"></div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Auxiliar Administrativa (Estágio)</h2>
+                    <p>AGEFIS - Fortaleza | Dez/2025 – Jul/2026</p>
+                    <div class="details">
+                        <p>Suporte a processos administrativos públicos, organização de documentos, fluxo de chamados e apoio às equipas do setor.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Etapa 5: Graduação em RH -->
+            <div class="timeline-item expanded" onclick="toggleDetails(this)">
+                <div class="timeline-visual">
+                    <div class="node"></div>
+                    <div class="arrow-down"></div>
+                </div>
+                <div class="timeline-content">
+                    <h2>Licenciatura em Gestão de RH</h2>
+                    <p>Concluído em 01/2026</p>
+                    <div class="details">
+                        <p>Formação superior focada em desenvolvimento de pessoas, recrutamento & seleção, clima organizacional e gestão de desempenho.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script para controlo de expansão dos itens -->
+    <script>
+        function toggleDetails(element) {
+            const allItems = document.querySelectorAll('.timeline-item');
+            allItems.forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('expanded');
+                }
+            });
+            element.classList.toggle('expanded');
+        }
+    </script>
+
+</body>
+</html>
